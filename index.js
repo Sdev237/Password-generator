@@ -32,10 +32,8 @@ function question() {
   } while (incluMajuscules !== "y" && incluMajuscules !== "n");
 }
 
-// Liste de caractères possibles
 const caracteresPossibles = "!@#$%^&*()-_=+";
 
-// Fonction pour générer un caractère aléatoire
 const caractereAleatoire = () => {
   const indiceAleatoire = Math.floor(
     Math.random() * caracteresPossibles.length
@@ -44,9 +42,8 @@ const caractereAleatoire = () => {
 };
 
 const lettreAleatoire = () => {
-  // Générer un indice aléatoire pour les lettres de 'a' à 'z'
   let indice = Math.floor(Math.random() * 26);
-  // Convertir l'indice en caractère ASCII correspondant à une lettre de 'a' à 'z'
+
   let lettre = String.fromCharCode("a".charCodeAt(0) + indice);
   return lettre;
 };
@@ -62,10 +59,8 @@ function generateurMotPasse() {
   let caractere;
 
   for (let i = 0; i < nbrCaracteres; i++) {
-    // Générer une lettre aléatoire
     caractere = lettreAleatoire();
 
-    // Ajouter une majuscule si la condition est remplie
     if (
       (incluMajuscules === "y" ||
         incluMajuscules === "Y" ||
@@ -75,7 +70,6 @@ function generateurMotPasse() {
       password += lettreAleatoire().toUpperCase();
     }
 
-    // Ajouter un caractère spécial si la condition est remplie
     if (
       (caractereSpeciaux === "y" ||
         caractereSpeciaux === "Y" ||
@@ -85,7 +79,6 @@ function generateurMotPasse() {
       password += caractereAleatoire();
     }
 
-    // Ajouter un chiffre si la condition est remplie
     if (
       (incluChiffres === "y" ||
         incluChiffres === "Y" ||
@@ -95,13 +88,11 @@ function generateurMotPasse() {
       password += chiffreAleatoire();
     }
 
-    // Ajouter le caractère généré au mot de passe si la longueur n'a pas dépassé la limite
     if (password.length < nbrCaracteres) {
       password += caractere;
     }
   }
 
-  // Tronquer le mot de passe à la longueur spécifiée
   password = password.slice(0, nbrCaracteres);
 
   return password;
