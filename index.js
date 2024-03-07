@@ -92,7 +92,6 @@ function generateurMotPasse() {
       password += caractere;
     }
   }
-
   password = password.slice(0, nbrCaracteres);
 
   return password;
