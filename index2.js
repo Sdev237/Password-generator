@@ -1,3 +1,8 @@
+/**
+ * code optimisé
+ *
+ **/
+
 import { prompt } from "./prompt.js";
 
 let nbrCaracteres = 0;
@@ -10,20 +15,30 @@ function question() {
     nbrCaracteres = Number(prompt("Combien de caractères ? (8-36) "));
   }
 
+  promptCaracteresSpeciaux();
+  promptChiffres();
+  promptMajuscules();
+}
+
+function promptCaracteresSpeciaux() {
   do {
     caractereSpeciaux = prompt("Caractères spéciaux ? (y/n) ");
     if (caractereSpeciaux !== "y" && caractereSpeciaux !== "n") {
       console.log("Veuillez répondre avec 'y' pour Oui ou 'n' pour Non.");
     }
   } while (caractereSpeciaux !== "y" && caractereSpeciaux !== "n");
+}
 
+function promptChiffres() {
   do {
     incluChiffres = prompt("Chiffres ? (y/n) ");
     if (incluChiffres !== "y" && incluChiffres !== "n") {
       console.log("Veuillez répondre avec 'y' pour Oui ou 'n' pour Non.");
     }
   } while (incluChiffres !== "y" && incluChiffres !== "n");
+}
 
+function promptMajuscules() {
   do {
     incluMajuscules = prompt("Majuscules ? (y/n) ");
     if (incluMajuscules !== "y" && incluMajuscules !== "n") {
@@ -42,59 +57,35 @@ const caractereAleatoire = () => {
 };
 
 const lettreAleatoire = () => {
-  let indice = Math.floor(Math.random() * 26);
-
-  let lettre = String.fromCharCode("a".charCodeAt(0) + indice);
-  return lettre;
+  const indice = Math.floor(Math.random() * 26);
+  return String.fromCharCode("a".charCodeAt(0) + indice);
 };
 
-const chiffreAleatoire = () => {
-  const chiffre = Math.floor(Math.random() * 1000) + 1;
-  return chiffre;
-};
+const chiffreAleatoire = () => Math.floor(Math.random() * 1000) + 1;
 
 function generateurMotPasse() {
   question();
   let password = "";
-  let caractere;
 
   for (let i = 0; i < nbrCaracteres; i++) {
-    caractere = lettreAleatoire();
-
-    if (
-      (incluMajuscules === "y" ||
-        incluMajuscules === "Y" ||
-        incluMajuscules === "yes") &&
-      password.length < nbrCaracteres
-    ) {
+    if (incluMajuscules === "y" && i < nbrCaracteres) {
       password += lettreAleatoire().toUpperCase();
     }
 
-    if (
-      (caractereSpeciaux === "y" ||
-        caractereSpeciaux === "Y" ||
-        caractereSpeciaux === "yes") &&
-      password.length < nbrCaracteres
-    ) {
+    if (caractereSpeciaux === "y" && i < nbrCaracteres) {
       password += caractereAleatoire();
     }
 
-    if (
-      (incluChiffres === "y" ||
-        incluChiffres === "Y" ||
-        incluChiffres === "yes") &&
-      password.length < nbrCaracteres
-    ) {
+    if (incluChiffres === "y" && i < nbrCaracteres) {
       password += chiffreAleatoire();
     }
 
     if (password.length < nbrCaracteres) {
-      password += caractere;
+      password += lettreAleatoire();
     }
   }
 
   password = password.slice(0, nbrCaracteres);
-
   return password;
 }
 
